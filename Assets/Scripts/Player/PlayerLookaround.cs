@@ -12,6 +12,18 @@ public class PlayerLookaround : MonoBehaviour
     void Start()
     {
         LockCursorInsideScene();
+
+        upDownRotation = LimitAt180(CurrentAngles());
+    }
+
+    private float LimitAt180(Vector3 currentAngles)
+    {
+        return currentAngles.x > 180 ? currentAngles.x - 360 : currentAngles.x;
+    }
+
+    private Vector3 CurrentAngles()
+    {
+        return transform.localEulerAngles;
     }
 
     void Update()

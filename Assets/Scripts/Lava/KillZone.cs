@@ -2,31 +2,62 @@ using UnityEngine;
 
 public class KillZone : MonoBehaviour
 {
-    void Start()
-    {
 
-    }
+    [SerializeField] Transform startPositionOfPlayer;
+    [SerializeField] Transform startPositionOfLava;
+    [SerializeField] float startRisingAt;
+    [SerializeField] float risingSpeed;
 
     void Update()
     {
+        Timer();
 
+        Rise();
+    }
+
+    private void Timer()
+    {
+
+        if (!DidTimerRunOut())
+        {
+            startRisingAt -= Time.deltaTime;
+        }
+    }
+
+    private void Rise()
+    {
+        if (DidTimerRunOut())
+        {
+            LetLavaRise();
+        }
+    }
+
+    private bool DidTimerRunOut()
+    {
+        return startRisingAt < 0;
+    }
+
+    private void LetLavaRise()
+    {
+        gameObject.transform.position += new Vector3(0, risingSpeed, 0) * Time.deltaTime;
     }
 
     void OnTriggerEnter(Collider other)
     {
+
         if (other.CompareTag("Player"))
         {
             ResetPlayerPosition(other.gameObject);
+
+            gameObject.transform.position = startPositionOfLava.position;
         }
     }
 
     private void ResetPlayerPosition(GameObject player)
     {
-        Vector3 startPositionOfPlayer = new(-0.233f, 1.484f, 1.002f);
-
         DisableCharacterController(player);
 
-        player.transform.position = startPositionOfPlayer;
+        player.transform.position = startPositionOfPlayer.position;
 
         EnableCharacterController(player);
     }

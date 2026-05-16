@@ -67,5 +67,5 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "TheFloorIsLava.slnx"
+    "dotnet.defaultSolution": "The Floor Is Lava.slnx"
 }

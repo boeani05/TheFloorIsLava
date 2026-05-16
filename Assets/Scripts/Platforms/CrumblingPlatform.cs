@@ -37,18 +37,17 @@ public class CrumblingPlatform : MonoBehaviour
         isDisappearing = true;
 
         yield return new WaitForSeconds(crumbleDelay);
-
         yield return ApplyCrumbleEffect();
 
         yield return new WaitForSeconds(disappearDelay);
-
         SetPlatformEnabled(false);
+        crumblingPlatform.SetActive(false);
 
         yield return new WaitForSeconds(respawnDelay);
+        crumblingPlatform.SetActive(true);
+        SetPlatformEnabled(true);
 
         RespawnPlatform();
-
-        SetPlatformEnabled(true);
 
         isDisappearing = false;
     }
